@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Device } from "../model/device";
 
 @Component({
   selector: 'app-root',
@@ -7,14 +8,14 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  devices:Device[];
 
   constructor(private http:HttpClient){
     this.getAll()
   }
 
   getAll(){
-    this.http.get('http://localhost:3000/devices')
-      .subscribe(result=>console.log(result));
+    this.http.get<Device[]>('http://localhost:3000/devices')
+      .subscribe(result=>this.devices=result);
   }
 }
